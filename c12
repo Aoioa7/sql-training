@@ -1,0 +1,28 @@
+12-2
+
+部署
+CREATE TABLE department (
+  depcode   CHAR(2)     PRIMARY KEY,
+  depname VARCHAR(40) UNIQUE NOT NULL
+);
+
+役職
+CREATE TABLE position (
+  poscode  CHAR(1)     PRIMARY KEY,
+  posname  VARCHAR(20) UNIQUE NOT NULL
+);
+
+社員
+CREATE TABLE person (
+  percode    CHAR(5)     PRIMARY KEY,
+  pername  VARCHAR(40) NOT NULL,
+  poscode  CHAR(1)     NOT NULL REFERENCES position(poscode),
+  age      INTEGER     CHECK(age >= 0)
+);
+
+部員
+CREATE TABLE member (
+  depcode   CHAR(2)     NOT NULL REFERENCES department(depcode),
+  percode    CHAR(5)     NOT NULL REFERENCES person(percode),
+  PRIMARY KEY(depcode, percode)
+);
